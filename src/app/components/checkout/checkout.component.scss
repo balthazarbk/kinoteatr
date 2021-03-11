@@ -1,0 +1,31 @@
+main {
+  max-width: 80%;
+  margin: 1rem auto;
+  h3 {
+    margin: 1rem;
+  }
+  section {
+    margin-bottom: 1rem;
+    .form-fields-container {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 1rem;
+      mat-form-field {
+        max-width: max-content;
+        padding-right: 0.5rem;
+      }
+      form {
+        margin-top: 1rem;
+        display: inherit;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        button {
+          max-width: max-content;
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+}

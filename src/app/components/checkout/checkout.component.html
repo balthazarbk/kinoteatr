@@ -1,0 +1,80 @@
+<mat-toolbar>
+  <span>Checkout:</span>
+</mat-toolbar>
+
+<main>
+
+  <section class="item-list">
+    <mat-toolbar color="primary"><span>Cart:</span></mat-toolbar>
+    <h3 *ngIf="cart.items.length === 0; else cartWithItem">…is empty.</h3>
+    <ng-template #cartWithItem>
+      <mat-list>
+        <app-item
+          *ngFor="let item of cart.items; last as last"
+          [item]="item" [last]="last"
+          (removing)="removeFromCart($event)"
+        ></app-item>
+      </mat-list>
+    <mat-toolbar><span>Total Price: {{ cart.totalPrice }} <small>SEK</small></span></mat-toolbar>
+    </ng-template>
+  </section>
+
+  <section class="customer-info" *ngIf="cart.items.length !== 0">
+    <mat-toolbar color="primary"><span>Select your payment method:</span></mat-toolbar>
+    <div class="form-fields-container">
+    <mat-form-field appearance="fill">
+      <mat-label for="paymentMethod">Payment methods:</mat-label>
+      <select matNativeControl type="select" id="paymentMethod" [formControl]="paymentMethod" required>
+        <option value="Mastercard">MasterCard</option>
+        <option value="Visa">Visa</option>
+        <option value="Klarna">Klarna</option>
+      </select>
+    </mat-form-field>
+    </div>
+  </section>
+
+  <section class="customer-info" *ngIf="cart.items.length !== 0">
+    <mat-toolbar color="primary"><span>Fill in your contact details:</span></mat-toolbar>
+
+    <div class="form-fields-container">
+    <form [formGroup]="customerForm" (ngSubmit)="checkout()">
+
+      <div class="fullname-container">
+        <mat-form-field appearance="fill">
+          <mat-label for="firstName">First name: </mat-label>
+          <input type="text" matInput placeholder="First Name" formControlName="firstName" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label for="lastName">Last name: </mat-label>
+          <input type="text" matInput placeholder="Last Name" formControlName="lastName" />
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label for="email">Email: </mat-label>
+        <input type="text" matInput placeholder="E-mail" formControlName="email" />
+      </mat-form-field>
+
+      <div formGroupName="address">
+        <mat-form-field appearance="fill">
+          <mat-label for="street">Street: </mat-label>
+          <input type="text" matInput placeholder="Street" formControlName="street" />
+        </mat-form-field>
+        <div class="postcode-city-container">
+          <mat-form-field appearance="fill">
+            <mat-label for="postcode">Postcode: </mat-label>
+            <input type="text" matInput placeholder="Postcode" formControlName="postcode" />
+          </mat-form-field>
+            <mat-form-field appearance="fill">
+            <mat-label for="city">City: </mat-label>
+            <input type="text" matInput placeholder="City" formControlName="city" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-raised-button color="warn" type="submit" [disabled]="customerForm.invalid">Checkout</button>
+
+    </form>
+  </div>
+
+  </section>
+</main>

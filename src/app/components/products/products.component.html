@@ -1,0 +1,22 @@
+<main>
+  <mat-card *ngFor="let product of products" class="card">
+    <mat-card-header>
+      <mat-card-title>
+        {{ product.name }}
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="product.categories.length > 0">
+        <ng-container *ngFor="let category of product.categories">{{ category.name }}  </ng-container>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{ product.imageUrl }}"
+         (error)="imgNotFound($event)"
+         alt="Poster of the movie '{{ product.name }}'." />
+    <mat-card-content>
+      <p>{{ product.description }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <span>{{ product.price }} SEK</span>
+      <button mat-raised-button color="accent" (click)="addToCart(product)" class="button">Buy</button>
+    </mat-card-actions>
+  </mat-card>
+</main>

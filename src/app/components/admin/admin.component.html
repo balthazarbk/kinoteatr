@@ -1,0 +1,69 @@
+<mat-toolbar>
+  <span>Admin:</span>
+</mat-toolbar>
+<main>
+  <table mat-table [dataSource]="orders">
+
+    <ng-container matColumnDef="orderId">
+      <th mat-header-cell *matHeaderCellDef>Order ID</th>
+      <td mat-cell *matCellDef="let order">{{order.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <th mat-header-cell *matHeaderCellDef>Created</th>
+      <td mat-cell *matCellDef="let order">{{order.created | date: "yy/MM/dd, h.mm a":"UTC"}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Customer Email</th>
+      <td mat-cell *matCellDef="let order">{{ order.createdBy.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef>Customer Full Name</th>
+      <td mat-cell *matCellDef="let order">{{ order.createdBy.firstName }} {{ order.createdBy.lastName | uppercase }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef>Customer Address</th>
+      <td mat-cell *matCellDef="let order">{{ order.createdBy.address.street }}, {{ order.createdBy.address.postcode }} {{ order.createdBy.address.city }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="productIds">
+      <th mat-header-cell *matHeaderCellDef>Product ID(s)</th>
+      <td mat-cell *matCellDef="let order">
+        <span *ngFor="let row of order.orderRows; let i = index">
+          <span>{{ row.productId }}</span>
+          <span *ngIf="i !== order.orderRows.length - 1; else dotSpan">, </span>
+          <ng-template #dotSpan>.</ng-template>
+          </span
+      ></td>
+    </ng-container>
+
+    <ng-container matColumnDef="paymentMethod">
+      <th mat-header-cell *matHeaderCellDef>Payment Method</th>
+      <td mat-cell *matCellDef="let order">{{ order.paymentMethod }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalPrice">
+      <th mat-header-cell *matHeaderCellDef>Total Price (SEK)</th>
+      <td mat-cell *matCellDef="let order">{{ order.totalPrice }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let order">{{ order.status }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let order">
+        <button mat-flat-button color="warn" (click)="deleteOrderBy(order.id)">Delete this order</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+  </table>
+</main>

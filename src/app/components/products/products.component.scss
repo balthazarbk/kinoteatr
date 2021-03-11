@@ -1,0 +1,29 @@
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  main {
+    max-width: 80%;
+    min-width: 80%;
+    display: inherit;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+    .card {
+      max-width: 20%;
+      height: min-content;
+      margin-bottom: 1rem;
+      mat-card-actions {
+        padding: 0 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        span {
+          color: green;
+          align-self: center;
+          padding: 0 0.5rem;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

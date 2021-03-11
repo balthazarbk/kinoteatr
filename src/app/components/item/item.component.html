@@ -1,0 +1,10 @@
+<mat-list-item>
+  <img matListAvatar src="{{ item.imageUrl }}" alt="Image of '{{ item.name }}'" />
+  <h3 matLine>{{ item.name }}</h3>
+  <p matLine>{{ item.price }} SEK</p>
+  <mat-action-list>
+    <button mat-button (click)="emitRemoving()">Remove this item</button>
+  </mat-action-list>
+  <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+</mat-list-item>
+

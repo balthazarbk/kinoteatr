@@ -1,0 +1,18 @@
+<mat-toolbar>
+  <span>Cart:</span>
+</mat-toolbar>
+<main>
+  <h3 *ngIf="!cartCreated || cart.items.length === 0; else itemsList">
+    …is empty!
+  </h3>
+  <ng-template #itemsList>
+    <mat-list>
+      <app-item
+        *ngFor="let item of cart.items; last as last"
+        [item]="item" [last]="last"
+        (removing)="removeFromCart($event)"
+      ></app-item>
+    </mat-list>
+    <mat-toolbar><span>Total Price: {{ cart.totalPrice }} <small>SEK</small></span><button mat-raised-button color="warn" routerLink="../checkout" routerLinkActive="active" id="proceed-to-checkout-button">Proceed to Checkout</button></mat-toolbar>
+  </ng-template>
+</main>

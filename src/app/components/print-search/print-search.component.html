@@ -1,0 +1,13 @@
+<mat-toolbar>
+  <span>Result of search by name: <code>"{{ searchText }}"</code></span>
+</mat-toolbar>
+
+<ng-container *ngIf="nothingFound; else showResults">
+  <main>
+  <h3>Nothing was found!</h3>
+  </main>
+</ng-container>
+
+<ng-template #showResults>
+  <app-products [products]="productsByNameSearch"></app-products>
+</ng-template>
